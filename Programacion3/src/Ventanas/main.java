@@ -7,5 +7,4 @@ public class main {
 		mainWindow g = new mainWindow();
 		
 	}
-
 }
