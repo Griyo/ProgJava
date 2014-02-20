@@ -3,7 +3,7 @@ package Ventanas;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-public class mainWindow extends JFrame {
+public class MainWindow extends JFrame {
 	
 	
 	private int altura=0, ancho=0;
@@ -11,7 +11,7 @@ public class mainWindow extends JFrame {
 	
 	JButton btn;
 	
-	public mainWindow (String titulo, int ancho, int altura){
+	public MainWindow (String titulo, int ancho, int altura){
 		this.setTitle(titulo);
 		this.setSize(ancho, altura);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -20,7 +20,7 @@ public class mainWindow extends JFrame {
 		this.setVisible(true);
 	}
 
-	public mainWindow (){
+	public MainWindow (){
 		this.setTitle("Griyo's Windows");
 		this.setSize(200, 250);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

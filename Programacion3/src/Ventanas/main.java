@@ -1,10 +1,11 @@
 package Ventanas;
 
-public class main {
+public class Main {
 
 	public static void main(String[] args) {
 		
-		mainWindow g = new mainWindow("Griyo's Windows", 400, 500);
+		//mainWindow g = new mainWindow();
+		MainWindow g = new MainWindow("Griyo's Windows", 400, 500);
 		
 	}
 }
