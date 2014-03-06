@@ -8,10 +8,11 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class TextPanel extends JPanel {
 
-	private JTextArea textArea;
+	private JTextField textArea;
 	private JButton btn;
 	
 
@@ -27,12 +28,12 @@ public class TextPanel extends JPanel {
 				System.out.println(e);
 			}
 		});*/
-		textArea= new JTextArea();
+		textArea= new JTextField();
 		//add(btn, BorderLayout.SOUTH);
 		add(new JScrollPane(textArea), BorderLayout.NORTH);
 	}
 	
 	public void escribir (String cadena){
-		textArea.setText(cadena);
+		textArea.setText(textArea.getText()+cadena);
 	}
 }

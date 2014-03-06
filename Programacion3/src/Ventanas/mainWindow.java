@@ -18,12 +18,12 @@ public class MainWindow extends JFrame {
 	
 	public MainWindow (String titulo, int ancho, int altura){
 		
-
+		TextPanel panel=new TextPanel();
 		this.setTitle(titulo);
 		this.setSize(ancho, altura);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.add(new TextPanel(),BorderLayout.NORTH);
-		this.add(new TecladoCalculadora(),BorderLayout.CENTER);
+		this.add(panel,BorderLayout.NORTH);
+		this.add(new TecladoCalculadora(panel),BorderLayout.CENTER);
 		this.setVisible(true);
 	}
 
