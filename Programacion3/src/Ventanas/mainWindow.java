@@ -23,12 +23,12 @@ public class MainWindow extends JFrame {
 		this.setSize(ancho, altura);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.add(panel,BorderLayout.NORTH);
-		this.add(new TecladoCalculadora(panel),BorderLayout.CENTER);
+		this.add(new TecladoCalculadora(),BorderLayout.CENTER);
 		this.setVisible(true);
 	}
 
 	public MainWindow (){
-		this.setTitle("Griyo's Windows");
+		this.setTitle("Griyo's Calculator");
 		this.setSize(200, 250);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(new GridLayout(4,4,5,5));

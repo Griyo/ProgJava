@@ -8,7 +8,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
-
 public class MainFrame extends JFrame {
 	
 	private JButton btn;
@@ -22,8 +21,7 @@ public class MainFrame extends JFrame {
 		
 		toolbar = new Toolbar();
 		btn = new JButton("Click me");
-		textPanel = new TextPanel();
-		
+		textPanel = new TextPanel();		
 		
 		toolbar.setStringListener(new StringListener(){
 

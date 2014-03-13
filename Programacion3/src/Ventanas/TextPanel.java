@@ -18,22 +18,12 @@ public class TextPanel extends JPanel {
 
 	public TextPanel(){
 		setLayout(new BorderLayout());
-		//btn = new JButton("=");
-		
-		/*btn.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				textArea.append("Hola \n");
-				System.out.println(e);
-			}
-		});*/
+
 		textArea= new JTextField();
-		//add(btn, BorderLayout.SOUTH);
 		add(new JScrollPane(textArea), BorderLayout.NORTH);
 	}
 	
-	public void escribir (String cadena){
+	public void appendText (String cadena){
 		textArea.setText(textArea.getText()+cadena);
 	}
 }
