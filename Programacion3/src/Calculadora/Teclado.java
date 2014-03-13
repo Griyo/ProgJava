@@ -11,8 +11,8 @@ import javax.swing.JPanel;
 public class Teclado extends JPanel implements ActionListener,Operaciones  {
 	private JButton btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn0,btnPunto,btnIgual,btnSuma,btnResta,btnDivision,btnMulti;
 	private StrLis textListener;
-	private String tempString="";
-	private int i=0;
+	private String tempString="",limpiar="";
+	private int i=0,x=0,y=0;
 	private double resultado=0;
 	String a,b;
 	private boolean DivMul = false, SumRes=false;
@@ -149,14 +149,9 @@ public class Teclado extends JPanel implements ActionListener,Operaciones  {
 		if (clicked == btnMulti || clicked == btnDivision || clicked == btnResta || clicked == btnSuma){
 			
 			arrStr[i]=tempString;
+			tempString=limpiar;
 			i++;
-			
-			for (int t=0; t<arrStr.length;t++){
-				if(arrStr[t]!=null){
-				System.out.println(arrStr[t]);
 
-				}
-			}
 			if(clicked == btnMulti){
 				arrStr[i]="*";
 			}
@@ -170,118 +165,100 @@ public class Teclado extends JPanel implements ActionListener,Operaciones  {
 				arrStr[i]="+";
 			}
 			i++;
-			tempString="";
+			textListener.textEmitted(arrStr[i-1]);
 			
 		}
 		
 		if (clicked == btnIgual){
+			
 			arrStr[i]=tempString;
-			int x=0;
-					DivMul=false;
-					while (DivMul==false){
-						for(int y=0;y<arrStr.length;y++){
-							if (arrStr[y]== "*" || arrStr[y]=="/"){
-								x=y;
-								DivMul=true;
-							}
-							
-						}							
-						aux=x;
-
-					switch(arrStr[x]){
-					
-					case "*":
-						while (arrStr[aux-1]==null){
-							aux-=1;
-						}
-						a=arrStr[aux-1];
-						aux=x;
-						while (arrStr[aux+1]==null && arrStr[aux+1]!="+"){
-							aux+=1;
-							}
-						b=arrStr[aux+1];
-						Multiplicar(a,b,x);
-						break;
-					case "/":
-						while (arrStr[aux-1]==null){
-							aux-=1;
-						}
-						a=arrStr[aux-1];
-						aux=x;
-						while (arrStr[aux+1]==null && arrStr[aux+1]!="+"){
-							aux+=1;
-							}
-						b=arrStr[aux+1];
-						Division(a, b, x);
-						break;
-					}
-					if(DivMul==true){
-						arrStr[x-1]=String.valueOf(resultado);
-						arrStr[x]=null;
-						arrStr[x+1]=null;
-					}
-					}
+			
+			while(y!=10){
+			 x=0;
+			 y=0;
+			
+			while (x==0 && y<10){
+				if (arrStr[y]=="*" || arrStr[y]=="/"){
+					x=y;
+				}
+				y++;
+			}			
+			if(x!=0){
+				switch(arrStr[x]){
 				
-				// Hasta aqui
-	
-					while (SumRes == true){
-						for(int y=0;y<arrStr.length;y++){
-							if (arrStr[y]== "+" || arrStr[y]=="-"){
-								x=y;
-							}
-							
-						}				
-						for(int y=0;y<arrStr.length;y++){
-						if (arrStr[y]!= "+" || arrStr[y]!="-"){
-							SumRes=false;		
-						}
-						
-					}				
-	
-						 aux=x;
+				case "*":
+					aux=x;
+					a=arrStr[aux-1];					
+					b=arrStr[aux+1];
+					Multiplicar(a,b,x);
+					break;
+				case "/":
+					aux=x;
+					a=arrStr[aux-1];
+					b=arrStr[aux+1];
+					Division(a, b, x);
+					break;
+					default:
+						DivMul=false;
+						break;
+				}				
+				arrStr[x]=null;
+				arrStr[x+1]=null;
+				
+				while (x+2<arrStr.length){
+				arrStr[x]=arrStr[x+2];
+				arrStr[x+2]=null;
+				x++;
+			}
 
-						switch (arrStr[x]){
-						case "+":
-							while (arrStr[aux-1]==null){
-								aux-=1;
-							}
-							a=arrStr[aux-1];
-							aux=x;
-							while (arrStr[aux+1]==null && arrStr[aux+1]!="+"){
-								aux+=1;
-								}
-							b=arrStr[aux+1];
-							Sumar(a, b, x);
-							break;
-						case "-":
-							while (arrStr[aux-1]==null){
-								aux-=1;
-							}
-							a=arrStr[aux-1];
-							aux=x;
-							while (arrStr[aux+1]==null && arrStr[aux+1]!="+"){
-								aux+=1;
-								}
-							b=arrStr[aux+1];
-							Restar(a, b, x);
-							break;
-						}
-						arrStr[x]=String.valueOf(resultado);
-						if( arrStr[x-1]!=null){
-						arrStr[x-1]=null;
-						}
-						arrStr[x+1]=null;
-					}		
-			//	}
-					if (SumRes==false){
-						for(int y=0;y<arrStr.length;y++){
-							if (arrStr[y]!=null){
-								textListener.textEmitted(arrStr[y]);
-							}
-						}
-					}
-						
+			}
 		}
+			
+			y=0;
+			while(y!=10){
+			x=0;
+			y=0;
+			
+			while (x==0 && y<10){
+				if (arrStr[y]=="+" || arrStr[y]=="-"){
+					x=y;
+				}
+				y++;
+			}			
+			if(x!=0){
+				switch(arrStr[x]){
+				
+				case "+":
+					aux=x;
+					a=arrStr[aux-1];					
+					b=arrStr[aux+1];
+					Sumar(a,b,x);
+					break;
+				case "-":
+					aux=x;
+					a=arrStr[aux-1];
+					b=arrStr[aux+1];
+					Restar(a, b, x);
+					break;
+					default:
+						DivMul=false;
+						break;
+				}				
+				arrStr[x]=null;
+				arrStr[x+1]=null;
+				
+				while (x+2<arrStr.length){
+				arrStr[x]=arrStr[x+2];
+				arrStr[x+2]=null;
+				x++;
+			}
+
+			}
+		}
+		textListener.textEmitted("  =  "+arrStr[0]);
+
+		}
+
 	}
 	
 
