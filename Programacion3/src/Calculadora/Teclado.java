@@ -15,7 +15,6 @@ public class Teclado extends JPanel implements ActionListener,Operaciones  {
 	private int i=0,x=0,y=0;
 	private double resultado=0;
 	String a,b;
-	private boolean DivMul = false, SumRes=false;
 	int aux=0;
 	
 	String arrStr[] = new String [10];
@@ -165,12 +164,10 @@ public class Teclado extends JPanel implements ActionListener,Operaciones  {
 				arrStr[i]="+";
 			}
 			i++;
-			textListener.textEmitted(arrStr[i-1]);
-			
+			textListener.textEmitted(arrStr[i-1]);			
 		}
 		
-		if (clicked == btnIgual){
-			
+		if (clicked == btnIgual){			
 			arrStr[i]=tempString;
 			
 			while(y!=10){
@@ -198,19 +195,15 @@ public class Teclado extends JPanel implements ActionListener,Operaciones  {
 					b=arrStr[aux+1];
 					Division(a, b, x);
 					break;
-					default:
-						DivMul=false;
-						break;
 				}				
 				arrStr[x]=null;
 				arrStr[x+1]=null;
 				
-				while (x+2<arrStr.length){
-				arrStr[x]=arrStr[x+2];
-				arrStr[x+2]=null;
-				x++;
-			}
-
+					while (x+2<arrStr.length){
+					arrStr[x]=arrStr[x+2];
+					arrStr[x+2]=null;
+					x++;
+				}
 			}
 		}
 			
@@ -240,29 +233,19 @@ public class Teclado extends JPanel implements ActionListener,Operaciones  {
 					b=arrStr[aux+1];
 					Restar(a, b, x);
 					break;
-					default:
-						DivMul=false;
-						break;
 				}				
 				arrStr[x]=null;
-				arrStr[x+1]=null;
-				
+				arrStr[x+1]=null;				
 				while (x+2<arrStr.length){
 				arrStr[x]=arrStr[x+2];
 				arrStr[x+2]=null;
 				x++;
 			}
-
 			}
 		}
 		textListener.textEmitted("  =  "+arrStr[0]);
-
 		}
-
-	}
-	
-
-	
+	}	
 
 	@Override
 	public void Sumar(String a, String b, int x) {

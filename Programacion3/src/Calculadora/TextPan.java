@@ -11,10 +11,8 @@ public class TextPan extends JPanel {
 	
 	
 	public TextPan() {
-		textArea = new JTextArea();
-		
-		setLayout(new BorderLayout());
-		
+		textArea = new JTextArea();		
+		setLayout(new BorderLayout());		
 		add(textArea, BorderLayout.CENTER);
 	}
 	

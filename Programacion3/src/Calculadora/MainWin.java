@@ -8,8 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import ClasesProfe.StringListener;
-import Ventanas.TecladoCalculadora;
-import Ventanas.TextPanel;
+import Calculadora.Teclado;
+import Calculadora.TextPan;
 
 public class MainWin extends JFrame {
 	

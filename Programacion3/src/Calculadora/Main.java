@@ -1,6 +1,6 @@
 package Calculadora;
 
-import Ventanas.MainWindow;
+import Calculadora.MainWin;
 
 public class Main {
 
