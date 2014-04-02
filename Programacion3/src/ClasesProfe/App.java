@@ -1,5 +1,8 @@
 package ClasesProfe;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -10,8 +13,7 @@ public class App {
 		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				new MainFrame();
-			}
+				}
 		});	
 	}
-
 }

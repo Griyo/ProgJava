@@ -244,6 +244,7 @@ public class Teclado extends JPanel implements ActionListener,Operaciones  {
 			}
 		}
 		textListener.textEmitted("  =  "+arrStr[0]);
+		i++;
 		}
 	}	
 
