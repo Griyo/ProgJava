@@ -5,23 +5,21 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		double c1,c2,c3,x;
 		int exp;
 		double a,b,ia,ib,m,fa,fb,fm,error,eact;
 		double eaux=0;
-		
 		Scanner lector = new Scanner(System.in);
 		
 		System.out.println("Dame el coeficiente del termino cuadratico");
-		c1=1;//lector.nextDouble();
+		c1=lector.nextDouble();
 		System.out.println("Dame el exponente del termino cuadratico");
-		exp=3;//lector.nextInt();
+		exp=lector.nextInt();
 		System.out.println("Dame el coeficiente del segundo termino, si no existe, teclea '0'(Cero)");
-		c2=-3;//lector.nextDouble();
+		c2=lector.nextDouble();
 		System.out.println("Dame el termino lineal,si no existe, teclea '0'(Cero)");
-		c3=1;//lector.nextDouble();
+		c3=lector.nextDouble();
 		System.out.println("Ingerse el intervalo a");
 		a=lector.nextDouble();
 		System.out.println("Ingerse el intervalo b");
@@ -45,14 +43,16 @@ public class Main {
 			}
 			eact=Math.abs((m-eaux)/m);
 			eaux=Math.abs(m);
-			}while (fm!=0 || eact>error );
+			if(fm==0){
+				 System.exit(0); 
+			}
+			}while (eact>error );
+		System.out.println("Ultima aproximacion encontrada: "+m);
 	}
 	
 	public static double Funcion(int exp, double c1, double c2, double c3, double x){
 		double total=c1;
-		
 		c2=c2*x;
-		
 		total=((double)Math.pow(x, exp)*c1);
 		if (c2<0){
 			c2*=-1;
