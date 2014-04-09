@@ -46,7 +46,7 @@ public class Main {
 			if(fm==0){
 				 System.exit(0); 
 			}
-			}while (eact>error );
+			}while (eact>error);
 		System.out.println("Ultima aproximacion encontrada: "+m);
 	}
 	

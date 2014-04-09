@@ -28,7 +28,6 @@ public class MainFrame extends JFrame {
 		formPanel = new FormPanel();
 		toolbar = new Toolbar();
 		
-		
 		toolbar.setArrayList(lista);
 		toolbar.setStringListener(new StringListener(){
 
@@ -37,33 +36,33 @@ public class MainFrame extends JFrame {
 				// TODO Auto-generated method stub
 				textPanel.appendText(text);
 			}});
-		
+
 		toolbar.setArrayListener(new ArrayListener(){
-			
 			@Override
 			public void ArrayEmitted(ArrayList<FormEvent> lista) {
 				// TODO Auto-generated method stub
 				for(FormEvent fe:lista){
-					textPanel.appendText(fe.getName()+": "+fe.getOccupation()+". "+fe.getEdad()+" Años"+"\n");
+					textPanel.appendText(fe.getName()+": "+fe.getOccupation()+". "+fe.getEdad()
+							+" Años"+" Empleado ID "+fe.getEmpId()+" Rango: "+fe.getRangoEdad()+"\n"
+							+" "+fe.getEmpTipo()+" Genero: "+fe.getGender()+"\n"+ 
+							"Nacionalidad: "+fe.getNacionalidad()+"\n");
 					}
-				
 			}
-			
 		});
-		
+
 		btn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				textPanel.appendText("Hello\n");
 			}
 		});
-		
-		formPanel.setFormListener(new FormListener(){			
+
+		formPanel.setFormListener(new FormListener(){
 			public void formEventOcurred(FormEvent e){
-				
+
 				lista.add(e);
 			//	String name = e.getName();
 			//	String occupation = e.getOccupation();
-			//	textPanel.appendText(name + ": "+occupation + "\n");				
+			//	textPanel.appendText(name + ": "+occupation + "\n");
 			}
 		});
 		
