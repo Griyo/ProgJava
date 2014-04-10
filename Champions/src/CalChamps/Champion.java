@@ -17,5 +17,4 @@ public class Champion {
 		this.movementSpeed=movementSpeed;
 		this.range=Range;
 	}
-
 }

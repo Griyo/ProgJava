@@ -6,5 +6,4 @@ public class MainApp {
 
 		new MainFrame();
 	}
-
 }

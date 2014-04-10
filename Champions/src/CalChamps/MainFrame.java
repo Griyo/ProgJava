@@ -18,16 +18,15 @@ public class MainFrame extends JFrame {
 		PanelBotones= new BotonesChamps();
 		PanelCalculator = new PanelCalculator();
 		
+		
 		scroller = new JScrollPane(PanelBotones);
-		add(scroller,BorderLayout.CENTER);
-		//add(PanelCalculator,BorderLayout.CENTER);
+	    JScrollPane scroller = new JScrollPane(PanelBotones);  
+	    this.getContentPane().add(scroller, BorderLayout.CENTER); 
+		setSize(1480, 717);
+		 //add(PanelCalculator,BorderLayout.CENTER);
 		
 		
-		setSize(1215, 717);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
-		
-		
+		setVisible(true);		
 	}
-
 }

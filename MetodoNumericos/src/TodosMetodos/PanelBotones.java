@@ -17,6 +17,7 @@ public class PanelBotones extends JPanel {
 	JRadioButton bisRadioButton,falPosRadioButton;
 	JTextField c1TextField;
 	private ButtonGroup buttonGroup;	
+	private RadioListener butListener;
 
 	
 	public PanelBotones(){
@@ -48,6 +49,10 @@ public class PanelBotones extends JPanel {
 		add(bisRadioButton,gc);
 		gc.gridy++;
 		add(falPosRadioButton,gc);		
+	}
+	
+	public void setRadioListener(RadioListener Listener){
+		this.butListener=Listener;
 	}
 	
 	public double biseccion(double c1, double c2, double c3, double x, int exp, double a,
