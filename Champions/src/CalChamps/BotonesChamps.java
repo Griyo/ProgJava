@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JButton;
+import javax.swing.JScrollPane;
 
 
 public class BotonesChamps extends JPanel {
@@ -13,10 +14,9 @@ public class BotonesChamps extends JPanel {
 	public BotonesChamps(){
 		int y=0;
 		int x=0;
-		setLayout(null);
+		setLayout(new GridLayout(12,12));
 
-		for (int i=1; i<118;i++){
-			
+		for (int i=1; i<117;i++){			
 			JButton boton = new JButton();
 			Dimension dim = new Dimension();
 			dim.setSize(120, 120);
@@ -30,6 +30,6 @@ public class BotonesChamps extends JPanel {
 				x=0;
 				y+=120;
 			}
-		}			
+		}		
 	}
 }

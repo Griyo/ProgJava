@@ -24,12 +24,12 @@ public class MainFrame extends JFrame {
 			@Override
 			public void RadioPressed(JRadioButton button) {
 				JRadioButton selected=(JRadioButton)button.getSelectedIcon();
-				if(selected==bisButton){
+				/*if(selected==bisButton){
 					add(panelBiseccion,BorderLayout.EAST);
 					}
 				else{
 					add(panelFalsaPosicion,BorderLayout.EAST);
-				}
+				}*/
 			}
 			
 		});

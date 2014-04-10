@@ -1,6 +1,7 @@
 package CalChamps;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -18,15 +19,14 @@ public class MainFrame extends JFrame {
 		PanelBotones= new BotonesChamps();
 		PanelCalculator = new PanelCalculator();
 		
+		add(PanelBotones);
 		
-		scroller = new JScrollPane(PanelBotones);
-	    JScrollPane scroller = new JScrollPane(PanelBotones);  
-	    this.getContentPane().add(scroller, BorderLayout.CENTER); 
-		setSize(1480, 717);
+		this.setResizable(false);
+		setSize(1245, 850);
 		 //add(PanelCalculator,BorderLayout.CENTER);
 		
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);		
+		setVisible(true);
 	}
 }
