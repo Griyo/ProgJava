@@ -12,8 +12,17 @@ public class FormEvent extends EventObject {
 	private String empTipo;
 	private String gender;
 	private String nacionalidad;
+	private int Id;
 	
 	
+
+	public int getId() {
+		return Id;
+	}
+
+	public void setId(int id) {
+		Id = id;
+	}
 
 	public FormEvent(Object arg0) {
 		super(arg0);
@@ -28,6 +37,16 @@ public class FormEvent extends EventObject {
 		this.edad=edad;
 		this.empId=empId;
 		this.rangoEdad=rangoEdad;
+		this.empTipo=empTipo;
+		this.gender=gender;
+		this.nacionalidad=nacionalidad;
+	}
+	public FormEvent(Object e, String name, String occupation,int edad,
+			String empTipo, String gender,String nacionalidad){
+		super(e);
+		this.name=name;
+		this.occupation=occupation;
+		this.edad=edad;
 		this.empTipo=empTipo;
 		this.gender=gender;
 		this.nacionalidad=nacionalidad;

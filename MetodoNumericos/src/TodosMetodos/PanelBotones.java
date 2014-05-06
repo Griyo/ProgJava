@@ -3,6 +3,8 @@ package TodosMetodos;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -16,16 +18,13 @@ public class PanelBotones extends JPanel {
 	
 	JRadioButton bisRadioButton,falPosRadioButton;
 	JTextField c1TextField;
+	MainFrame prueba;
 	private ButtonGroup buttonGroup;	
-	private RadioListener butListener;
 
 	
 	public PanelBotones(){
-		
-		
-		
-		
-		Border innerBorder = BorderFactory.createTitledBorder("Insercion de datos");
+	
+		Border innerBorder = BorderFactory.createTitledBorder("Seleccion de metodos");
 		Border outerBorder = BorderFactory.createEmptyBorder(5,5,5,5);
 		setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
 		
@@ -36,7 +35,9 @@ public class PanelBotones extends JPanel {
 		buttonGroup = new ButtonGroup();
 		buttonGroup.add(bisRadioButton);
 		buttonGroup.add(falPosRadioButton);
+		bisRadioButton.setSelected(true);
 		
+
 		GridBagConstraints gc = new GridBagConstraints();
 		
 		gc.weightx = 1;
@@ -50,21 +51,7 @@ public class PanelBotones extends JPanel {
 		gc.gridy++;
 		add(falPosRadioButton,gc);		
 	}
+}	
+
 	
-	public void setRadioListener(RadioListener Listener){
-		this.butListener=Listener;
-	}
-	
-	public double biseccion(double c1, double c2, double c3, double x, int exp, double a,
-			double b, double ia, double ib, double m, double fa, double fb, double fm,
-			double error, double eact, double eaux){
-		
-		
-		
-		double total=0;
-		
-		
-		return total;
-		
-	}
-}
+

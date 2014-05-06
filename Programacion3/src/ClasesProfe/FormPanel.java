@@ -7,6 +7,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -28,16 +30,26 @@ public class FormPanel extends JPanel implements ActionListener {
 	private JLabel nameLabel;
 	private JLabel occupationLabel;
 	private JLabel nacLabel;
+	private JLabel modLabel;
+	
 	private JTextField nameField;
 	private JTextField occupationField;
 	private JTextField nacField;
+	private JTextField modField;
+	
+	DatabaseLayer dbl = new DatabaseLayer();
+
 
 	private JButton okBtn;
+	private JButton actButton;
+	private JButton delButton;
+	
 	private JList ageList;
 	private JComboBox empCombo;
 	
 	
 	private JCheckBox cbMexicano;
+	private JCheckBox modCheck;
 	
 	private JRadioButton maleRadio;
 	private JRadioButton femaleRadio;
@@ -54,12 +66,17 @@ public class FormPanel extends JPanel implements ActionListener {
 		nameLabel = new JLabel("Nombre: ");
 		occupationLabel = new JLabel ("Ocupacion: ");
 		nacLabel = new JLabel("Nacionalidad: ");
+		modLabel = new JLabel("ID del campo a modificar");
 
 		nameField = new JTextField(10);
 		occupationField = new JTextField(10);
 		nacField = new JTextField(10);
+		modField = new JTextField(5);
+		modField.setEnabled(false);
+		
 		empCombo = new JComboBox();
 		cbMexicano = new JCheckBox("Mexicano",false);
+		modCheck = new JCheckBox("Modificar por ID",false);
 		
 		maleRadio = new JRadioButton("Masculino");
 		maleRadio.setActionCommand("Masculino");
@@ -107,6 +124,71 @@ public class FormPanel extends JPanel implements ActionListener {
 			
 		});
 		
+		modCheck.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if (modCheck.isSelected()){
+					modField.setEnabled(true);
+					actButton.setEnabled(true);
+					delButton.setEnabled(true);
+				}
+				else{
+					modField.setEnabled(false);
+					actButton.setEnabled(false);
+					delButton.setEnabled(false);
+				}
+			}
+			
+		});
+		
+		delButton = new JButton("Borrar");
+		delButton.setEnabled(false);
+		delButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				String sql = "delete from trabajador where idTrabajador="+modField.getText();
+				dbl.delQuery(sql);
+			}
+			
+		});
+		actButton = new JButton("Actualizar");
+		actButton.setEnabled(false);
+		actButton.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String name = nameField.getText();
+				String occupation = occupationField.getText();
+				AgeCategory ageCat = (AgeCategory)ageList.getSelectedValue();
+				int edad = ageCat.getId();
+				String rango = ageCat.getText();
+				EmployeeCategory empCat = (EmployeeCategory)empCombo.getSelectedItem();
+				int empId=(empCat.getId());
+				String empTipo = empCat.getText();
+				String gender = genderGroup.getSelection().getActionCommand();
+				System.out.println(gender);
+				String nacionalidad;
+				
+				if(cbMexicano.isSelected()){
+					nacionalidad="Mexican@";
+				}
+				else{
+					nacionalidad=nacField.getText();
+				}
+				
+				FormEvent ev = new FormEvent(this,name,occupation,edad,empId,rango,empTipo,gender,nacionalidad);
+				String indice = modField.getText();
+				dbl.actQuery(ev,indice);
+
+				}
+			
+			
+		});
+
+		
 		okBtn = new JButton("OK");
 		okBtn.addActionListener(new ActionListener() {
 			
@@ -120,7 +202,6 @@ public class FormPanel extends JPanel implements ActionListener {
 				int empId=(empCat.getId());
 				String empTipo = empCat.getText();
 				String gender = genderGroup.getSelection().getActionCommand();
-				System.out.println(gender);
 				String nacionalidad;
 				if(cbMexicano.isSelected()){
 					nacionalidad="Mexican@";
@@ -130,6 +211,7 @@ public class FormPanel extends JPanel implements ActionListener {
 				}
 				
 				FormEvent ev = new FormEvent(this,name,occupation,edad,empId,rango,empTipo,gender,nacionalidad);
+
 				
 				if(formListener != null){
 					formListener.formEventOcurred(ev);
@@ -208,7 +290,10 @@ public class FormPanel extends JPanel implements ActionListener {
 		gc.gridx = 1;
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		gc.insets = new Insets(0, 0, 0, 0);
+		add(modField,gc);
+		gc.gridy++;
 		add(okBtn,gc);
+
 		
 		////////////////Sixth ROW///////////////////////
 		gc.weightx = 1;
@@ -223,6 +308,12 @@ public class FormPanel extends JPanel implements ActionListener {
 		add(femaleRadio,gc);
 		gc.gridy++;
 		add(otherRadio,gc);
+		gc.gridy++;
+		add(modCheck,gc);
+		gc.gridy++;
+		add(delButton,gc);
+		gc.gridy++;
+		add(actButton,gc);
 		
 		////////////////Seventh ROW/////////////////////
 		gc.weightx = 1;
