@@ -5,13 +5,13 @@ import java.util.EventObject;
 public class FormEvent extends EventObject {
 
 	private String name;
-	private String occupation;
+	private int occupation;
 	private int edad;
 	private int empId;
 	private String rangoEdad;
-	private String empTipo;
+	private int empTipo;
 	private String gender;
-	private String nacionalidad;
+	private int nacionId;
 	private int Id;
 	
 	
@@ -29,37 +29,37 @@ public class FormEvent extends EventObject {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public FormEvent(Object e, String name, String occupation,int edad,
-			int empId,String rangoEdad, String empTipo, String gender,String nacionalidad){
+	
+	public FormEvent(Object e, String name, int occupation,int edad,
+			int empId, int empTipo, String gender,int nacionId){
 		super(e);
 		this.name=name;
 		this.occupation=occupation;
 		this.edad=edad;
 		this.empId=empId;
-		this.rangoEdad=rangoEdad;
 		this.empTipo=empTipo;
 		this.gender=gender;
-		this.nacionalidad=nacionalidad;
+		this.nacionId=nacionId;
 	}
-	public FormEvent(Object e, String name, String occupation,int edad,
-			String empTipo, String gender,String nacionalidad){
+	public FormEvent(Object e, String name, int occupation,int edad,
+			int empTipo, String gender,int nacionId){
 		super(e);
 		this.name=name;
 		this.occupation=occupation;
 		this.edad=edad;
 		this.empTipo=empTipo;
 		this.gender=gender;
-		this.nacionalidad=nacionalidad;
+		this.nacionId=nacionId;
 	}
 	
 	
 	
-	public String getNacionalidad() {
-		return nacionalidad;
+	public int getNacionId() {
+		return nacionId;
 	}
 
-	public void setNacionalidad(String nacionalidad) {
-		this.nacionalidad = nacionalidad;
+	public void setNacionId(int nacionId) {
+		this.nacionId = nacionId;
 	}
 
 	public String getGender() {
@@ -70,11 +70,11 @@ public class FormEvent extends EventObject {
 		this.gender = gender;
 	}
 
-	public String getEmpTipo() {
+	public int getEmpTipo() {
 		return empTipo;
 	}
 
-	public void setEmpTipo(String empTipo) {
+	public void setEmpTipo(int empTipo) {
 		this.empTipo = empTipo;
 	}
 	
@@ -110,11 +110,11 @@ public class FormEvent extends EventObject {
 		this.name = name;
 	}
 
-	public String getOccupation() {
+	public int getOccupation() {
 		return occupation;
 	}
 
-	public void setOccupation(String occupation) {
+	public void setOccupation(int occupation) {
 		this.occupation = occupation;
 	}
 }

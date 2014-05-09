@@ -50,10 +50,10 @@ public class MainFrame extends JFrame {
 					for(FormEvent f:list){
 						textPanel.appendText("ID: "+f.getId()+"\n"+
 											 "Nombre: "+f.getName()+"\n"+
-											 "Ocupacion: "+f.getOccupation()+"\n"+
-											 "Tipo de Empleado: "+f.getEmpTipo()+"\n"+
+											 "ocupacion_Id: "+f.getOccupation()+"\n"+
+											 "tipoEmpleado_Id: "+f.getEmpTipo()+"\n"+
 											 "Genero: "+f.getGender()+"\n"+
-											 "Pais: "+f.getNacionalidad()+"\n"+
+											 "nacionalidad_Id: "+f.getNacionId()+"\n"+
 											 "----------------------"+"\n");
 					}
 				}
@@ -74,18 +74,15 @@ public class MainFrame extends JFrame {
 				lista.add(e);
 				if(dbl.isConnected()){
 					String sql = "INSERT INTO trabajador"+
-								"(tipoEmpleado,nombre,ocupacion,edad,genero,pais)"+
-								"VALUES ('"+e.getEmpTipo()+"','"+e.getName()+"','"+e.getOccupation()+"',"+30+
-										  ",'"+e.getGender()+"','"+e.getNacionalidad()+"')";	
+								"(tipoEmpleado_Id,nombre,ocupacion_Id,edad,genero,nacionalidad_Id)"+
+								"VALUES ("+e.getEmpTipo()+",'"+e.getName()+"',"+e.getOccupation()+","+30+
+										  ",'"+e.getGender()+"',"+e.getNacionId()+")";	
+					System.out.println(sql);
 					dbl.queryExec(sql);
 				}
 				else{
 					System.out.println("Conexion no establecida");
 				}
-				
-			//	String name = e.getName();
-			//	String occupation = e.getOccupation();
-			//	textPanel.appendText(name + ": "+occupation + "\n");
 			}
 		});
 		

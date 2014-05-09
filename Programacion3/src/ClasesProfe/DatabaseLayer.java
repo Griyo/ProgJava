@@ -56,17 +56,16 @@ public class DatabaseLayer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-	
+	}	
 	
 	public void actQuery(FormEvent fe, String indice){
 		try {
 			String sql = "UPDATE trabajador "+ "SET "+"nombre ="+"'"+fe.getName()+"',"+
-												    "ocupacion ="+"'"+fe.getOccupation()+"',"+
-												    "tipoEmpleado="+"'"+fe.getEmpTipo()+"',"+
+												    "ocupacion_Id ="+""+fe.getOccupation()+","+
+												    "tipoEmpleado_Id="+""+fe.getEmpTipo()+","+
 												    "edad="+fe.getEdad()+","+
 												    "genero="+"'"+fe.getGender()+"',"+
-												    "pais="+"'"+fe.getNacionalidad()+"'"+
+												    "nacionalidad_Id="+""+fe.getNacionId()+""+
 												    " where idTrabajador="+indice+";";
 			System.out.println(sql);
 			stm.executeUpdate(sql);
@@ -94,13 +93,12 @@ public class DatabaseLayer {
 				while(rs.next()){
 					FormEvent item = new FormEvent(this);
 					item.setId(rs.getInt("idTrabajador"));
-					item.setEmpTipo(rs.getString("tipoEmpleado"));
+					item.setEmpTipo(rs.getInt("tipoEmpleado_Id"));
 					item.setName(rs.getString("nombre"));
-					item.setOccupation(rs.getString("ocupacion"));
+					item.setOccupation(rs.getInt("ocupacion_Id"));
 					item.setEdad(rs.getInt("edad"));
-					item.setNacionalidad(rs.getString("pais"));
+					item.setNacionId(rs.getInt("nacionalidad_Id"));
 					item.setGender(rs.getString("genero"));
-					System.out.println(rs.getInt("idTrabajador"));
 					dbList.add(item);	
 				}
 				
@@ -116,4 +114,77 @@ public class DatabaseLayer {
 			return dbList;
 		}
 	}
+	
+	
+	public ArrayList<Nacionalidad> resultQueryNac(String sql){
+		 ArrayList<Nacionalidad> nacList = new ArrayList<Nacionalidad>();
+		try {
+			rs = stm.executeQuery(sql);
+			try {
+				while(rs.next()){
+					Nacionalidad item = new Nacionalidad(rs.getInt("idNacionalidad"),
+															rs.getString("nacion"));
+					nacList.add(item);	
+				}				
+				rs.close();
+			} catch (SQLException i) {
+				// TODO Auto-generated catch block
+				i.printStackTrace();
+			}
+			return nacList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return nacList;
+		}
+	}
+	
+	public ArrayList<Empleado> resultQueryType(String sql){
+		 ArrayList<Empleado> nacList = new ArrayList<Empleado>();
+		try {
+			rs = stm.executeQuery(sql);
+			try {
+				while(rs.next()){
+					Empleado item = new Empleado(rs.getInt("idtipoEmpleado"),
+															rs.getString("tipoEmpleado"));
+					nacList.add(item);	
+				}				
+				rs.close();
+			} catch (SQLException i) {
+				// TODO Auto-generated catch block
+				i.printStackTrace();
+			}
+			return nacList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return nacList;
+		}
+	}
+	
+	public ArrayList<Ocupacion> resultQueryOcup(String sql){
+		 ArrayList<Ocupacion> ocuList = new ArrayList<Ocupacion>();
+		try {
+			rs = stm.executeQuery(sql);
+			try {
+				while(rs.next()){
+					Ocupacion item = new Ocupacion(rs.getInt("idocupacion"),
+															rs.getString("ocupacion"));
+					ocuList.add(item);	
+				}				
+				rs.close();
+			} catch (SQLException i) {
+				// TODO Auto-generated catch block
+				i.printStackTrace();
+			}
+			return ocuList;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ocuList;
+		}
+	}
+	
+	
+	
 }

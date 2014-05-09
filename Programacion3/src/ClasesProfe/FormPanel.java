@@ -46,6 +46,9 @@ public class FormPanel extends JPanel implements ActionListener {
 	
 	private JList ageList;
 	private JComboBox empCombo;
+	private JComboBox nacCombo;
+	private JComboBox tipoCombo;
+	private JComboBox ocuCombo;
 	
 	
 	private JCheckBox cbMexicano;
@@ -64,7 +67,7 @@ public class FormPanel extends JPanel implements ActionListener {
 		setPreferredSize(dim);
 		
 		nameLabel = new JLabel("Nombre: ");
-		occupationLabel = new JLabel ("Ocupacion: ");
+		occupationLabel = new JLabel ("Edad: ");
 		nacLabel = new JLabel("Nacionalidad: ");
 		modLabel = new JLabel("ID del campo a modificar");
 
@@ -75,6 +78,10 @@ public class FormPanel extends JPanel implements ActionListener {
 		modField.setEnabled(false);
 		
 		empCombo = new JComboBox();
+		nacCombo = new JComboBox();
+		tipoCombo = new JComboBox();
+		ocuCombo = new JComboBox();
+		
 		cbMexicano = new JCheckBox("Mexicano",false);
 		modCheck = new JCheckBox("Modificar por ID",false);
 		
@@ -91,23 +98,51 @@ public class FormPanel extends JPanel implements ActionListener {
 		genderGroup.add(femaleRadio);
 		genderGroup.add(otherRadio);		
 		
+		
 		ageList=new JList();
 		DefaultListModel ageModel = new DefaultListModel();
 		ageModel.addElement(new AgeCategory(23,"18 - 35"));
 		ageModel.addElement(new AgeCategory(34,"36 - 55"));
 		ageModel.addElement(new AgeCategory(45,"Mas de 56"));
 		ageList.setModel(ageModel);
-		
+
 		ageList.setPreferredSize(new Dimension(110,70));
 		ageList.setBorder(BorderFactory.createEtchedBorder());
 		ageList.setSelectedIndex(0);
 		
-		DefaultComboBoxModel empModel = new DefaultComboBoxModel();
-		empModel.addElement(new EmployeeCategory(0,"Empleado"));
-		empModel.addElement(new EmployeeCategory(1,"Por Contrato"));
-		empModel.addElement(new EmployeeCategory(2,"No Empleado"));
-		empCombo.setModel(empModel);
-		empCombo.setSelectedIndex(0);
+		///// Nacionalidad ComboBox////////////////
+
+		String sql = "select * from nacionalidad";
+		ArrayList<Nacionalidad> nacList = dbl.resultQueryNac(sql);
+		
+		DefaultComboBoxModel nacModel = new DefaultComboBoxModel();
+		for(Nacionalidad f:nacList){
+			nacModel.addElement(new Nacionalidad(f.getId(),f.getNacionalidad()));			
+		}
+		nacCombo.setModel(nacModel);
+		nacCombo.setSelectedIndex(0);
+		
+		///// Tipo Empleado ComboBox////////////////
+		sql = "select * from tipoempleado";
+		ArrayList<Empleado> tipoList = dbl.resultQueryType(sql);
+		
+		DefaultComboBoxModel typeModel = new DefaultComboBoxModel();
+		for(Empleado f:tipoList){
+			typeModel.addElement(new Empleado(f.getId(),f.getTipoEmpleado()));			
+		}
+		tipoCombo.setModel(typeModel);
+		tipoCombo.setSelectedIndex(0);
+		
+		/////Ocupacion ComboBox/////////////////////
+		 sql = "select * from ocupacion";
+		ArrayList<Ocupacion> ocuList = dbl.resultQueryOcup(sql);
+		
+		DefaultComboBoxModel ocuModel = new DefaultComboBoxModel();
+		for(Ocupacion f:ocuList){
+			ocuModel.addElement(new Ocupacion(f.getId(),f.getOcupacion()));			
+		}
+		ocuCombo.setModel(ocuModel);
+		ocuCombo.setSelectedIndex(0);
 		
 		cbMexicano.addActionListener(new ActionListener(){
 
@@ -161,25 +196,15 @@ public class FormPanel extends JPanel implements ActionListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String name = nameField.getText();
-				String occupation = occupationField.getText();
+				int occupation = ocuCombo.getSelectedIndex()+1;
 				AgeCategory ageCat = (AgeCategory)ageList.getSelectedValue();
-				int edad = ageCat.getId();
-				String rango = ageCat.getText();
-				EmployeeCategory empCat = (EmployeeCategory)empCombo.getSelectedItem();
-				int empId=(empCat.getId());
-				String empTipo = empCat.getText();
+				int edad = Integer.parseInt(occupationField.getText());
+				int empTipo = tipoCombo.getSelectedIndex()+1;
 				String gender = genderGroup.getSelection().getActionCommand();
 				System.out.println(gender);
-				String nacionalidad;
 				
-				if(cbMexicano.isSelected()){
-					nacionalidad="Mexican@";
-				}
-				else{
-					nacionalidad=nacField.getText();
-				}
+				FormEvent ev = new FormEvent(this,name,occupation,edad,empTipo,gender,nacCombo.getSelectedIndex()+1);
 				
-				FormEvent ev = new FormEvent(this,name,occupation,edad,empId,rango,empTipo,gender,nacionalidad);
 				String indice = modField.getText();
 				dbl.actQuery(ev,indice);
 
@@ -194,23 +219,14 @@ public class FormPanel extends JPanel implements ActionListener {
 			
 			public void actionPerformed(ActionEvent e){
 				String name = nameField.getText();
-				String occupation = occupationField.getText();
-				AgeCategory ageCat = (AgeCategory)ageList.getSelectedValue();
-				int edad = ageCat.getId();
-				String rango = ageCat.getText();
-				EmployeeCategory empCat = (EmployeeCategory)empCombo.getSelectedItem();
-				int empId=(empCat.getId());
-				String empTipo = empCat.getText();
+				int occupation = ocuCombo.getSelectedIndex()+1;
+				int edad = Integer.parseInt(occupationField.getText());
+				int empId= 0;
+				int empTipo = tipoCombo.getSelectedIndex()+1;
 				String gender = genderGroup.getSelection().getActionCommand();
-				String nacionalidad;
-				if(cbMexicano.isSelected()){
-					nacionalidad="Mexican@";
-				}
-				else{
-					nacionalidad=nacField.getText();
-				}
+				int naci =nacCombo.getSelectedIndex();
 				
-				FormEvent ev = new FormEvent(this,name,occupation,edad,empId,rango,empTipo,gender,nacionalidad);
+				FormEvent ev = new FormEvent(this,name,occupation,edad,empId,empTipo,gender,naci+1);
 
 				
 				if(formListener != null){
@@ -270,7 +286,12 @@ public class FormPanel extends JPanel implements ActionListener {
 		gc.gridx = 1;
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		gc.insets = new Insets(0, 0, 0, 0);
-		add(ageList,gc);		
+		add(ocuCombo,gc);	
+		
+		gc.gridy=5;
+		gc.gridx=1;
+		add(okBtn,gc);
+
 		/////////////////Fourth ROW//////////////////
 		
 		gc.weightx = 1;
@@ -280,7 +301,7 @@ public class FormPanel extends JPanel implements ActionListener {
 		gc.gridx = 0;
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		gc.insets = new Insets(0, 0, 0, 0);
-		add(empCombo,gc);		
+		add(tipoCombo,gc);		
 		////////////////Fifth ROW//////////////////////
 		
 		gc.weightx = 1;
@@ -291,8 +312,8 @@ public class FormPanel extends JPanel implements ActionListener {
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		gc.insets = new Insets(0, 0, 0, 0);
 		add(modField,gc);
-		gc.gridy++;
-		add(okBtn,gc);
+		//gc.gridy++;
+		//add(okBtn,gc);
 
 		
 		////////////////Sixth ROW///////////////////////
@@ -310,9 +331,9 @@ public class FormPanel extends JPanel implements ActionListener {
 		add(otherRadio,gc);
 		gc.gridy++;
 		add(modCheck,gc);
-		gc.gridy++;
+		gc.gridy=7;
 		add(delButton,gc);
-		gc.gridy++;
+		gc.gridx++;
 		add(actButton,gc);
 		
 		////////////////Seventh ROW/////////////////////
@@ -323,27 +344,8 @@ public class FormPanel extends JPanel implements ActionListener {
 		gc.gridx = 1;
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		gc.insets = new Insets(0, 0, 0, 0);
-		add(cbMexicano,gc);
-		gc.weightx = 1;
-		gc.weighty = 0.5;
-		
-		gc.weightx = 1;
-		gc.weighty = 0.2;
-		
-		gc.gridy = 5;
-		gc.gridx = 1;
-		gc.anchor = GridBagConstraints.FIRST_LINE_START;
-		gc.insets = new Insets(0, 0, 0, 0);
-		add(nacField,gc);
-		
-		gc.weightx = 1;
-		gc.weighty = 0.2;
-		
-		gc.gridy = 4;
-		gc.gridx = 1;
-		gc.anchor = GridBagConstraints.FIRST_LINE_START;
-		gc.insets = new Insets(0, 0, 0, 0);
-		add(nacLabel,gc);
+		add(nacCombo,gc);
+
 		
 		
 		/////////////////
@@ -424,6 +426,9 @@ class EmployeeCategory{
 		return text;
 	}	
 }
+
+
+
 
 
 
